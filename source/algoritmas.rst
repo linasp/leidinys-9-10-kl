@@ -155,7 +155,7 @@ Olimpiadose ribojamas programų veikimo laikas ir naudojamoji atmintis. Taigi ap
 
 Ši programa suskaičiuoja, kiek elementarių veiksmų kompiuteris gali atlikti per vieną sekundę (suprantama, jei programą pradėjote ir baigėte vykdyti tą pačią parą). Be abejo, matavimai nėra visiškai tikslūs, tačiau jų pakanka įvertinti kompiuterio spartai.
 
-Taigi tarkime, kad duomenų dydis yra :math:`n`, :math:`O(f(n))` sudėtingumo algoritmas atlieka lygiai :math:`f(n)` elementarių veiksmų, o atlikę pateiktą programą įvertinome, kad kompiuteris per 1 sekundę atlieka 109 tokių veiksmų. Sudarykime lentelę, atspindinčią, kiek laiko trunka įvairaus sudėtingumo algoritmų vykdymas su įvairiais pradiniais duomenimis.
+Taigi tarkime, kad duomenų dydis yra :math:`n`, :math:`O(f(n))` sudėtingumo algoritmas atlieka lygiai :math:`f(n)` elementarių veiksmų, o atlikę pateiktą programą įvertinome, kad kompiuteris per 1 sekundę atlieka :math:`10^9` tokių veiksmų. Sudarykime lentelę, atspindinčią, kiek laiko trunka įvairaus sudėtingumo algoritmų vykdymas su įvairiais pradiniais duomenimis.
 
 .. todo:: Pertikrinti šitą lentelę su matematika.
           Pagalvoti apie alternatyvą šitai lentelei.
