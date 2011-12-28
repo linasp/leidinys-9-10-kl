@@ -184,3 +184,84 @@ Efektyviais laikomi polinominio sudėtingumo algoritmai, t. y. tokie, kurių sud
 Dar daugiau: matydami, jog uždavinio pradiniai duomenys labai maži, žinome, kad pakaks ir neefektyvaus algoritmo uždaviniui spręsti. Ir atvirkščiai: jei uždavinio pradiniai duomenys yra dideli, o leistinas programos veikimo laikas -- mažas, reikia ieškoti efektyvaus būdo, kaip spręsti šį uždavinį.
 
 Beje, beveik visose programose 90% laiko sugaištama vykdant 10% kodo. Ir likusių 90% kodo optimizavimas, deja, neturės didelės įtakos programos efektyvumui. Tad prieš imantis optimizuoti kurią nors algoritmo dalį reikia įsitikinti, ar verta tai daryti.
+
+
+Uždavinys "Posekio suma"
+------------------------
+
+Pabandykime pritaikyti įgytas žinias spręsdami konkretų uždavinį:
+
+    Duotas sveikasis skaičius :math:`k` bei :math:`n` neneigiamų skaičių seka :math:`a_1, a_2, \ldots, a_n`.
+
+    **Užduotis.** Reikia nustatyti, ar egzistuoja tokie indeksai :math:`i` ir :math:`j` :math:`(1 \le i \le j \le n)`, kad sekos narių nuo :math:`a_i` iki :math:`a_j` suma būtų lygi skaičiui :math:`k`.
+
+    Galioja ribojimai: :math:`1 \le k \le 100 000 000; 1 \le n \le 100 000; 0 \le a_i \le 1 000`.
+
+    Vykdymo laikas: 1 s.
+
+Aptarkime kelis galimus uždavinio sprendimo būdus bei jų sudėtingumą. Pats paprasčiausias būdas -- perrinkti visas galimas indeksų :math:`i` ir :math:`j` poras, kiekvienąkart suskaičiuojant sekos narių nuo :math:`i`-ojo iki :math:`j`-ojo sumą:
+
+.. code-block:: pascal
+
+    rasta := false;
+    i := 0;
+    repeat
+        j := i;
+        i := i + 1;
+        repeat
+            j := j + 1;
+            suma  := 0;
+            for l := i to j do
+                suma := suma + a[l];
+                { ši operacija vykdoma daugiausiai kartų }
+            rasta := (suma = k);
+        until (j = n) or rasta;
+    until (i = n) or rasta;
+
+Jei algoritmui baigus darbą kintamojo rasta reikšmė bus lygi ``true``, tai :math:`i` ir :math:`j` bus ieškomi indeksai. Suskaičiavę, kiek elementarių veiksmų blogiausiu atveju atlieka algoritmas, pamatytume, kad greičiausiai augantis gautojo reiškinio dėmuo yra :math:`frac{n^3}{6}`, taigi šio algoritmo sudėtingumas -- :math:`O(n^3)`. Tai atsispindi ir algoritmo struktūroje: jį sudaro trys ciklai, įdėti vienas į kitą, ir kiekvieno šių ciklų trukmė tiesiogiai priklauso nuo :math:`n`.
+
+.. todo:: sutvarkyti nuorodas į skyrių ir lentelę žemiau.
+
+Tai nėra geriausias uždavinio sprendimo būdas. Pasižiūrėjus į 1.5 skyrelyje pateiktą lentelę[6], matyti, kad per leistiną laiką algoritmas įveiktų testus, kur :math:`n \le ~1000`. Atkreipę dėmesį į tai, kad sekos nariai yra tik neneigiami skaičiai, galime sudaryti gudresnį algoritmą.
+
+Tegul ieškomasis indeksas :math:`i` lygus :math:`i_1` (t. y. kažkokiam konkrečiam skaičiui). Priskyrę indeksui :math:`j` pradinę reikšmę :math:`i_1`, jį didinsime tol, kol sekos narių nuo :math:`i` iki :math:`j` suma taps lygi arba viršys :math:`k` (arba kol indeksas :math:`j` pasieks sekos pabaigą). Sumos neperskaičiuosime iš naujo kiekvieną kartą, o, padidinę indeksą :math:`j`, prie sumos tiesiog pridėsime sekos narį :math:`a_j`.
+
+.. code-block:: pascal
+
+    rasta := false;
+    i := 0;
+    repeat
+        j := i;
+        i := i + 1;
+        suma := 0;
+        repeat
+            j := j + 1;
+            suma := suma + a[j];
+        until (j = n) or (suma >= k);
+        rasta := (suma = k);
+    until (i = n) or rasta;
+
+Šį algoritmą sudaro du ciklai, antrasis jų pirmojo viduje, ir abiejų ilgis tiesiogiai priklauso nuo :math:`n`. Blogiausiu atveju abiejuose cikluose bus vykdoma :math:`n` žingsnių (pavyzdžiui, jei visi sekos nariai -- nuliai, tuomet suma niekada netaps lygi arba didesnė už :math:`k`), taigi šio algoritmo sudėtingumas yra :math:`O(n^2)`. Tai daug geresnis algoritmas, jis gali įveikti testus, kur :math:`n \le ~30\ 000`. Tačiau to nepakanka.
+
+Kritiškai įvertinkime savo algoritmą. Tarkime, :math:`n = 100\ 000`, :math:`i = 1`, :math:`j = 90\ 000`, ir :math:`suma < k`. Kas atsitiks, jei, padidinus :math:`j` dar vienetu, suma taps didesnė už :math:`k`? Indeksas :math:`i` bus padidintas vienetu, :math:`j` priskirta :math:`i` reikšmė ir iš naujo skaičiuojamos sumos. Tačiau jei sekos narių nuo 1 iki 90 000 suma buvo mažesnė už :math:`k`, tai tuo labiau tokia bus ir narių nuo 2 iki 90 000 suma. Šio (milžiniško) intervalo būtų galima netikrinti!
+
+Tai apibendrinę, galime sudaryti dar geresnį algoritmą. Priskirkime indeksams reikšmes :math:`i = j = 1`, o sumai reikšmę :math:`a_1`. Tai bus pradinis intervalas. Veiksmus kartosime, kol suma nelygi :math:`k` ir :math:`j` mažesnis už :math:`n`. Kiekvienu žingsniu vykdysime vieną iš šių veiksmų: jei suma mažesnė už :math:`k`, intervalą praplėsime – padidinsime indeksą :math:`j` ir prie sumos pridėsime :math:`a_j`; jei suma didesnė už :math:`k` (tai tokia ji tapo po paskutinio žingsnio), intervalą siaurinsime -- iš sumos atimsime `a_i` ir padidinsime indekso `i` reikšmę. Jei po kurio nors žingsnio suma taps lygi `k`, algoritmas iškart nutrauks darbą.
+
+.. code-block:: pascal
+
+    suma := a[1];
+    i := 1;
+    j := 1;
+    while (suma <> k) and (j < n) do
+        if suma < k then begin
+            j := j + 1;
+            suma := suma + a[j];
+        end else begin
+            suma := suma - a[i];
+            i := i + 1;
+        end;
+    rasta := (suma = k);
+
+Kadangi vienu žingsniu padidinamas tik vienas iš indeksų ir kiekvienas iš indeksų gali būti padidintas ne daugiau kaip :math:`n` kartų, daugių daugiausia gali tekti įvykdyti :math:`2n` žingsnių. Algoritmo sudėtingumas yra :math:`O(n)`, taigi jo visiškai pakaks uždaviniui įveikti ir kai :math:`n = 100000`.
+
+Aptarėme kelis uždavinio *Posekio suma* sprendimus ir skirtingą jų efektyvumą. Atsiminkime, jog geras algoritmas atlieka tik tai, kas būtina. Ieškodami, kaip galime pagerinti algoritmą, galvokime, kokius nereikalingus arba pakartotinius veiksmus jis atlieka.
