@@ -265,3 +265,47 @@ Tai apibendrinę, galime sudaryti dar geresnį algoritmą. Priskirkime indeksams
 Kadangi vienu žingsniu padidinamas tik vienas iš indeksų ir kiekvienas iš indeksų gali būti padidintas ne daugiau kaip :math:`n` kartų, daugių daugiausia gali tekti įvykdyti :math:`2n` žingsnių. Algoritmo sudėtingumas yra :math:`O(n)`, taigi jo visiškai pakaks uždaviniui įveikti ir kai :math:`n = 100000`.
 
 Aptarėme kelis uždavinio *Posekio suma* sprendimus ir skirtingą jų efektyvumą. Atsiminkime, jog geras algoritmas atlieka tik tai, kas būtina. Ieškodami, kaip galime pagerinti algoritmą, galvokime, kokius nereikalingus arba pakartotinius veiksmus jis atlieka.
+
+
+NP sudėtingumas
+---------------
+
+Skaitydami knygas apie algoritmus ir uždavinių sprendimus, ne kartą sutiksite mistiškai skambančią frazę uždavinys yra NP pilnas.
+
+Uždavinys priklauso NP (*nondeterministic polynomial time*) sudėtingumo klasei, jei, žinodami šio uždavinio sprendinį, per polinominį laiką galime patikrinti, ar sprendinys teisingas. NP uždavinį galima išspręsti perrinkimu per eksponentinį laiką generuojant visus galimus sprendinius, ir kiekvieną sprendinį patikrinant per polinominį laiką.
+
+NP klasei priklauso daug labai gerai žinomų ir plačiai nagrinėtų kombinatorinių optimizavimo uždavinių. Vieni jų yra paprastesni (išsprendžiami per polinominį laiką), kitiems, sudėtingesniems, uždaviniams, žinomi tik perrenkantys visus sprendinius algoritmai.
+
+NP pilnas uždavinys yra toks uždavinys, kuris yra ne lengvesnis už visus kitus NP uždavinius. Taigi frazę „uždavinys yra NP pilnas“ „išvertus“ į suprantamesnę kalbą, reikštų: *niekam iki šiol nepavyko rasti efektyvaus uždavinį sprendžiančio algoritmo; tikėtina, kad toks algoritmas apskritai neegzistuoja*.
+
+Nepaisant sudėtingumo, šie uždaviniai gali turėti labai paprastą formuluotę, pavyzdžiui, tokią:
+
+    Žinomi atstumai tarp :math:`n` miestų; pirklys nori pradėti savo kelionę viename iš jų, apsilankyti kiekviename mieste tik po vieną kartą ir sugrįžti į pradinį miestą; užduotis -- iš visų tokių maršrutų surasti trumpiausią.
+
+.. todo:: sutvarkyti iliustraciją.
+
+3 pav. Keliaujančio pirklio uždavinys
+
+Šis uždavinys dar yra vadinamas *Keliaujančio pirklio uždaviniu*, o ieškomasis kelias -- *optimaliu Hamiltono ciklu*.
+
+Neįtikėtina, bet iki šiol niekas nesurado tikslaus ir efektyvaus algoritmo, sprendžiančio šį uždavinį. Vienintelis žinomas būdas rasti optimalų sprendinį bendru atveju -- perrinkti visus įmanomus maršrutus :math:`O(n!)` sudėtingumo (t.y. labai neefektyviu) algoritmu.
+
+Ką gi daryti, jei olimpiadoje tenka spręsti uždavinį, kuris, jūsų žiniomis, yra NP pilnas? Tikrai neverta pulti į paniką. Svarbiausia, kad jūs tai jau žinote! Nereikia ieškoti tikslaus ir efektyvaus uždavinį sprendžiančio algoritmo manant, kad kiti jau tokį surado, o nesiseka tik jums. Verčiau skirkite savo laiką ir energiją kurti euristiniam algoritmui, kuris bendru atveju pateiktų kuo geresnius rezultatus (pavyzdžiui, kuo trumpesnius maršrutus), arba, jei pradiniai duomenys tikrai labai maži, -- spręsti uždavinį perrinkimu.
+
+Amžinybės dėlionė
+-----------------
+
+Kristoferis Montonas (*Christopher Monton*) sukūrė geometrinę dėlionę, kurią pavadino Amžinybės dėlione (angl. *Eternity puzzle*). Ji buvo sudaryta iš 209 įvairios formos netaisyklingų daugiakampių, iš kurių reikėjo sudėti dvylikakampį. Dauguma daugiakampių buvo skirtingi, o juos visaip sukiojant buvo galima pasiekti labai daug pozicijų (t.y. iš dalies daugiakampių sudėliotų geometrinių figūrų), kurios nenuvesdavo prie sprendinio.
+
+.. todo:: sutvarkyti šiuos K paragrafus.
+
+K. Montonas užsakė pagaminti šią dėlionę, ir 1999 metų liepą ji atsidūrė parduotuvių lentynose. Jis taip pat pažadėjo, kad sumokės milijoną svarų tam, kuris pirmasis sudės šią dėlionę iki 2000 metų rugsėjo. Kilo visuotinis susidomėjimas dėlione, prekyba vyko labai sėkmingai: netgi Grenlandijoje buvo parduodami rekordiniai kiekiai dėlionių. Žmonės pirko, bandė sudėlioti dėlionę ir laimėti milijoną.
+
+.. todo:: pasitikslinti skaičius sekančiam paragrafe.
+
+Prieš pažadėdamas milijoną, K. Montonas be abejo, konsultavosi su matematikais, ir šie užtikrino, kad uždavinio neįmanoma išspręsti per duotą laiką net ir su kompiuterio pagalba, nes tai NP pilnas uždavinys. Vieni ekspertai spėjo, kad geriausiu atveju uždavinio sprendimas užtruks apie ketverius metus. Kiti mokslininkai netgi teigė, kad uždavinio sprendimas užtruks ilgiau nei gyvuos Visata. Nors visada lieka atsitiktinio sudėliojimo tikimybė, buvo apskaičiuota, kad tikimybė vienu bandymu atsitiktinai sudėlioti šią dėlionę yra 1 iš :math:`10^500` (palyginimui: tikimybė išlošti Didžiosios Britanijos nacionalinėje loterijoje yra 1 iš :math:`14 \cdot 10^6`).
+
+K. Montonas buvo tikras, kad jo milijonas yra saugus. Už pinigus, gautus pardavus dėliones, jis tikėjosi suremontuoti jam priklausiusį 1825 metais pastatytą dvarą, turintį 67 kambarius ir 200 akrų žemės.
+
+Tačiau du Kembridžo matematikai A. Serbis (*Alex Serby*) ir O. Riordanas (*Oliver Riordan*) sugebėjo sudėti dėlionę iki nurodytos datos. Jie pastebėjo, kad sudėlioti dėlionę iki tokios būsenos, kai likę daugiakampiai nebetelpa, yra gana paprasta. Tolesnė sėkmė priklauso nuo nepanaudotų daugiakampių rinkinio -- kuo parankesnių formų jie yra ir kuo daugiau įvairios formos daugiakampių galima iš jų sudėti, tuo šis rinkinys parankesnis tolimesniems bandymams. Tokiu būdu jie atrinko „blogus“ gabalėlius ir optimizuotoje perrinkimo programoje stengėsi juos padėti pirmiausia. Ši strategija pasitvirtino ir keletas jų asmeninių kompiuterių per porą savaičių surado sprendinį. K. Montonui teko parduoti savo dvarą ir išmokėti milijoną...
+
