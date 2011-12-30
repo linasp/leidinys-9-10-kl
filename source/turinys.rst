@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Informatikos olimpiados: algoritmai ir taikymo pavyzdžiai's documentation!
-=====================================================================================
+Informatikos olimpiados: algoritmai ir taikymo pavyzdžiai
+=========================================================
 
 Contents:
 
