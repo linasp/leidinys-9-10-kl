@@ -14,6 +14,7 @@ Contents:
 
    algoritmas
    euklido
+   pirminiai
 
 
 
