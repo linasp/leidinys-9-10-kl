@@ -13,6 +13,7 @@ Contents:
    :numbered:
 
    algoritmas
+   euklido
 
 
 
