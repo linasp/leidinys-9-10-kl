@@ -1,0 +1,6 @@
+# build/
+build/
+
+# temporary swap files
+*.swp
+*.swo
