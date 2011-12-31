@@ -15,6 +15,7 @@ Contents:
    algoritmas
    euklido
    pirminiai
+   rekursija
 
 
 
