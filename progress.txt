@@ -1,5 +1,6 @@
 SKYRIUS     SUKELTA     SUTVARKYTA      ILIUSTRACIJOS   C++
 -----------------------------------------------------------
+ Įvadas     -           -               -               -
      1.     +           -               -               -
      2.     +           -               -               -
      3.     +           -               -               -
