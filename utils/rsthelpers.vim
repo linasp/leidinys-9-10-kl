@@ -6,6 +6,8 @@ vmap <C-i> di**<Esc>P
 vmap <C-b> di****<Esc>hP
 vmap <C-c> di````<Esc>hP
 
+" todo: fix minus symbols ("–" to "-")
+
 function! Mathify(string)
     " Perform LaTeX transformations on the given string
     let string = a:string
