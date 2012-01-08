@@ -26,6 +26,7 @@ Kad nekomplikuotume, algoritmus pateiksime rikiuodami skaičių masyvą didėjim
 
 Rikiavimo algoritmų yra daug ir įvairių, tolesniuose skyreliuose aptarsime tik kelis naudingiausius. Pateiktus algoritmus bus nesunku pritaikyti ir kitokiems duomenų tipams.
 
+.. _rikiavimas-iterpimu:
 
 Rikiavimas įterpimu
 -------------------

@@ -19,6 +19,7 @@ Contents:
    rekursija
    perrinkimas
    rikiavimas
+   grafu_pagrindai
 
 
 
