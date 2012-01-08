@@ -280,6 +280,8 @@ NP pilnas uždavinys yra toks uždavinys, kuris yra ne lengvesnis už visus kitu
 
 Nepaisant sudėtingumo, šie uždaviniai gali turėti labai paprastą formuluotę, pavyzdžiui, tokią:
 
+.. _keliaujancio-pirklio-uzdavinys:
+
     Žinomi atstumai tarp :math:`n` miestų; pirklys nori pradėti savo kelionę viename iš jų, apsilankyti kiekviename mieste tik po vieną kartą ir sugrįžti į pradinį miestą; užduotis -- iš visų tokių maršrutų surasti trumpiausią.
 
 .. todo:: sutvarkyti iliustraciją.

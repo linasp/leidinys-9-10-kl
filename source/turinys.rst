@@ -17,6 +17,7 @@ Contents:
    euklido
    pirminiai
    rekursija
+   perrinkimas
 
 
 
