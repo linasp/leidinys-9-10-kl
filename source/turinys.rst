@@ -18,6 +18,7 @@ Contents:
    pirminiai
    rekursija
    perrinkimas
+   rikiavimas
 
 
 
