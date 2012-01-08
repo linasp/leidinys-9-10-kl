@@ -21,17 +21,20 @@ function! Mathify(string)
     " replace bad - and * symbols
     let string = substitute(string, '·', '*', 'g')
 
-    " £ -> \le
-    let string = substitute(string, '£', '\\le', 'g')
-
     " a+ b*c =d -> a + b * c = d
     let string = substitute(string, '\s\?\([+|\-|/|*|=]\)\s\?', ' \1 ', 'g')
+
+    " a1 -> a_1
+    let string = substitute(string, '\([A-Za-z]\)\([0-9|i|j|k|m|n]\)', '\1_\2', 'g')
 
     " * -> \cdot
     let string = substitute(string, '*', '\\cdot', 'g')
 
-    " a1 -> a_1
-    let string = substitute(string, '\([A-Za-z]\)\([0-9|i|j|k|m|n]\)', '\1_\2', 'g')
+    " ´ -> \times
+    let string = substitute(string, '´', '\\times', 'g')
+
+    " £ -> \le
+    let string = substitute(string, '£', '\\le', 'g')
 
     " { } -> \{ \}
     let string = substitute(string, '{', '\\{', 'g')
