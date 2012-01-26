@@ -43,46 +43,46 @@ Uždavinį galima išreikšti rekursyviai, t. y. suskaidyti į tokius pat, tik m
 
 Norint patikrinti, kurios prekės jau sudėtos į lentyną, galima peržiūrėti jau priskirtas reikšmes. Tačiau paprasčiau ir efektyviau paskirti globalų loginį masyvą panaudotas, ir, padėjus į lentyną prekę su numeriu :math:`i`, pažymėti, jog šis numeris jau panaudotas (``panaudotas[i] := true``), o paėmus prekę nuo lentynos -- atstatyti buvusią reikšmę (``panaudotas[i] := false``).
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    const MAXN = 20;    	{ didžiausia n reikšmė }
+    const int MAXN = 20; // didžiausia n reikšmė
 
-    var p : array [1..MAXN] of integer;
-        panaudotas : array [1..MAXN] of boolean;
+    int p[MAXN];
+    bool panaudotas[MAXN + 1];
 
-    procedure spausdink(m: integer);
-    var i : integer;
-    begin
-        for i := 1 to m do
-            write(p[i], ' ');
-        writeln;
-    end;
+    void spausdink(int n)
+    {
+        for (int i = 0; i < n; i++)
+            cout << p[i] << " ";
+        cout << endl;
+    }
 
-    procedure generuok(m, { parenkamas elementas m-ajai pozicijai }
-                    n : integer);
-    var i : integer;
-    begin
-        { jei m > n, tai ši procedūra iškviesta jau sugeneravus visą kėlinį }
-        if m > n then
-        spausdink(n)
-        else
-            for i := 1 to n do
-               if not panaudotas[i] then begin
-                   panaudotas[i] := true;
-                  p[m] := i;
-                  generuok(m + 1, n);
-                  panaudotas[i] := false;
-              end;
-    end;
+    void generuok(int m, // parenkamas elementas m-ajai pozicijai
+                  int n)
+    {
+        // jei m >= n, tai ši procedūra iškviesta jau sugeneravus visą kėlinį
+        if (m >= n) {
+            spausdink(n);
+            return;
+        }
+
+        for (int i = 1; i <= n; i++)
+            if (!panaudotas[i]) {
+                panaudotas[i] = true;
+                p[m] = i;
+                generuok(m + 1, n);
+                panaudotas[i] = false;
+            }
+    }
 
 Kad galėtume išspausdinti visas trijų prekių išdėliojimo lentynoje tvarkas, įvykdome:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    n := 3;
-    for i := 1 to n do
-        panaudotas[i] := false;
-    generuok(1, n);
+    n = 3;
+    for (int i = 1; i <= n; i++)
+        panaudotas[i] = false;
+    generuok(0, n);
 
 Parašytą procedūrą nesunku pritaikyti kitiems uždaviniams -- vietoj spausdinimo galima atlikti kokius nors kitus veiksmus. Spausdinimą iškėlėme į atskirą procedūrą norėdami paryškinti sprendimo struktūrą.
 
@@ -174,42 +174,42 @@ Grįžkime prie pavyzdžio su parduotuve. Sakykime, turime :math:`n` skirtingų 
 
 Kitaip sakant, reikia rasti visus **gretinius be pasikartojimų** iš :math:`n` elementų po :math:`k`. Uždavinys labai panašus į jau nagrinėtą kėlinių be pasikartojimų generavimo uždavinį, tiesiog iš :math:`n` elementų renkame tik :math:`k (k \le n)`.
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    const MAX = 20;    	{ didžiausia n ir k reikšmė }
+    const int MAX = 20; // didžiausia n ir k reikšmė
 
-    var p : array [1..MAX] of integer;
-        panaudotas : array [1..MAX] of boolean;
+    int p[MAX];
+    bool panaudotas[MAX + 1];
 
 
-    procedure generuok(m, { parenkamas elementas m-ajai pozicijai }
-                    n, k : integer);
-    var i : integer;
+    void generuok(int m, // parenkamas elementas m-ajai pozicijai
+                  int n, int k)
+    {
+        // jei m >= k, tai ši procedūra iškviesta jau sugeneravus
+        // visą gretinį
+        if (m >= k) {
+            spausdink(k);
+            return;
+        }
 
-    begin
-        { jei m > k,
-          tai ši procedūra iškviesta jau sugeneravus visą gretinį }
-        if m > k then
-        spausdink[18](k)
-        else
-            for i := 1 to n do
-              if not panaudotas[i] then begin
-                  panaudotas[i] := true;
-                  p[m] := i;
-                  generuok(m + 1, n, k);
-                  panaudotas[i] := false;
-                end;
-    end;
+        for (int i = 1; i <= n; i++)
+            if (!panaudotas[i]) {
+                panaudotas[i] = true;
+                p[m] = i;
+                generuok(m + 1, n, k);
+                panaudotas[i] = false;
+            }
+    }
 
 Norėdami gauti visus gretinius iš :math:`5` po :math:`3`, į procedūrą kreipiamės:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    n := 5;
-    k := 3;
-    for i := 1 to n do
-        panaudotas[i] := false;
-    generuok(1, n, k);
+    n = 5;
+    k = 3;
+    for (int i = 1; i <= n; i++)
+        panaudotas[i] = false;
+    generuok(0, n, k);
 
 Suskaičiuosime, kiek gali būti skirtingų gretinių be pasikartojimų, tuo pačiu įvertinsime ir algoritmo sudėtingumą. Pirmąją prekę galime rinktis iš visų :math:`n` prekių, antrąją prekę -- iš :math:`(n - 1)` prekės ir t. t. :math:`k`-ąją prekę galime rinktis iš :math:`(n - k + 1)` prekių. Gretinių be pasikartojimų iš :math:`n` elementų po :math:`k` skaičius žymimas :math:`A_n^k` ir lygus:
 
@@ -227,38 +227,40 @@ Derinius galima generuoti kaip gretinius, laikantis vienos papildomos taisyklės
 
     Keletas derinių iš penkių prekių po tris (tvarka deriniuose nesvarbi)
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    const MAX = 20;    	{ didžiausia n ir k reikšmė }
-    var p : array [1..MAX] of integer;
-        panaudotas : array [1..MAX] of boolean;
-    procedure generuok(nuo, { bus renkamasi tik iš elementų,
-                            didesnių arba lygių „nuo“ }
-                    m, { parenkamas elementas m-ajai pozicijai }
-                    n, k: integer);
-    var i : integer;
-    begin
-        { jei m > k, tai ši procedūra iškviesta jau sugeneravus visą derinį }
-        if m > k then spausdink[19](k)
-        else
-            for i := nuo to n do
-                if not panaudotas[i] then begin
-                    panaudotas[i] := true;
-                    p[m] := i;
-                  generuok(i + 1, m + 1, n, k);
-                    panaudotas[i] := false;
-                end;
-    end;
+    const int MAX = 20; // didžiausia n ir k reikšmė
+
+    int p[MAX];
+    bool panaudotas[MAX + 1];
+
+    void generuok(int m, int n, int k, int s)
+    {
+        // jei m >= k, tai ši procedūra iškviesta jau sugeneravus visą derinį
+        if (m >= k) {
+            spausdink(k);
+            return;
+        }
+        // bus renkamasi tik iš elementų, didesnių arba lygių „s“
+        // parenkamas elementas m-ajai pozicijai
+        for (int i = s; i <= n; i++)
+            if (!panaudotas[i]) {
+                panaudotas[i] = true;
+                p[m] = i;
+                generuok(m + 1, n, k, i + 1);
+                panaudotas[i] = false;
+            }
+    }
 
 Norėdami gauti visus skirtingus derinius iš :math:`5` elementų po :math:`3`, į procedūrą kreipiamės:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    n := 5;
-    k := 3;
-    for i := 1 to n do
-        panaudotas[i] := false;
-    generuok(1, 1, n, k);
+    n = 5;
+    k = 3;
+    for (int i = 1; i <= n; i++)
+        panaudotas[i] = false;
+    generuok(0, n, k, 1);
 
 Beliko apskaičiuoti, kiek gali būti skirtingų derinių be pasikartojimų iš :math:`n` po :math:`k`. Šį skaičių pažymėkime :math:`C_n^k`.
 
@@ -280,42 +282,44 @@ Visus galimus :math:`n` elementų aibės poaibius galime gauti generuodami iš e
 
     21 pav. Abėcėlės :math:`\{\text{true}, \text{false}\}` žodžių transformavimo į poaibius pavyzdys
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    const MAXN = 20;    	{ didžiausia n reikšmė }
+    const int MAXN = 20; // didžiausia n reikšmė
 
-    var parinktas : array [1..MAXN] of boolean;
+    bool parinktas[MAXN + 1];
         
-    procedure spausdink (m: integer);
-    var i : integer;
-    begin
-        write('{ ');
-        for i := 1 to m do
-            if parinktas[i] then
-                write(i, ' ');
-        writeln('}');
-    end;
+    void spausdink(int n)
+    {
+        cout << "{ ";
+        for (int i = 0; i < n; i++)
+            if (parinktas[i])
+                cout << i << " ";
+        cout << "}" << endl;
+    }
 
-    procedure generuok(k, n : integer);
-    { nagrinėjamas k-asis n elementų aibės narys }
-    var log : boolean;
-    begin
-        { jei k > n, tai ši procedūra iškviesta jau sugeneravus visą poaibį }
-        if k > n then
-            spausdink (k)
-        else
-            for log := false to true do begin
-                parinktas[k] := log;
-                generuok(k + 1, n);
-            end;
-    end;
+    void generuok(int k, int n)
+    {
+        // Nagrinėjamas k-asis n elementų aibės narys.
+        // Jei k >= n, tai ši procedūra iškviesta jau sugeneravus visą poaibį.
+        if (k >= n) {
+            spausdink(k);
+            return;
+        }
+
+        // Generuojame poaibius, kuriuose nėra k-ojo elemento
+        parinktas[k] = false;
+        generuok(k + 1, n);
+
+        // Generuojame poaibius, kuriuose yra k-asis elementas
+        parinktas[k] = true;
+        generuok(k + 1, n);
+    }
 
 Norėdami gauti visus poaibius iš 4 elementų, į procedūrą generuok kreipiamės:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    n := 4;
-    generuok(1, n);
+    generuok(0, 4);
 
 Suskaičiuosime, kiek skirtingų poaibių turės aibė iš :math:`n` elementų, o tuo pačiu ir algoritmo sudėtingumą. Poaibių skaičius lygus visų įmanomų :math:`n` ilgio žodžių iš abėcėlės :math:`\{\text{true}, \text{false}\}` skaičiui. Kadangi kiekvieną tokio žodžio raidę galime parinkti dviem būdais (atitinkamas elementas arba įtraukiamas į poaibį, arba ne), tai tokių žodžių (ir galimų poaibių) skaičius lygus :math:`2^n`.
 

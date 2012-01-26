@@ -40,19 +40,19 @@ Kitas pavyzdys -- skaičiaus faktorialas:
 
 Galime parašyti skaičiaus faktorialą skaičiuojančią funkciją:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    function fakt(n : integer) : longint;
-    begin
-        if n = 0 then
-            fakt := 1
+    int faktorialas(int n)
+    {
+        if (n == 0)
+            return 1;
         else
-            fakt := n * fakt(n – 1);
-    end;
+            return n * faktorialas(n - 1);
+    }
 
-Kreipinio ``fakt(4)`` vykdymą iliustruoja žemiau pateiktas paveikslas:
+Kreipinio ``faktorialas(4)`` vykdymą iliustruoja žemiau pateiktas paveikslas:
 
-Atlikus kreipinį ``fakt(n)``, iš viso bus įvykdyta :math:`(n + 1)` funkcijų kvietimų, taigi šios funkcijos sudėtingumas yra :math:`O(n)`. Šis būdas yra lėtesnis už faktorialo skaičiavimą ciklu, kadangi funkcijos iškvietimas yra kur kas sudėtingesnis procesas už ciklo iteraciją.
+Atlikus kreipinį ``faktorialas(n)``, iš viso bus įvykdyta :math:`(n + 1)` funkcijų kvietimų, taigi šios funkcijos sudėtingumas yra :math:`O(n)`. Šis būdas yra lėtesnis už faktorialo skaičiavimą ciklu, kadangi funkcijos iškvietimas yra kur kas sudėtingesnis procesas už ciklo iteraciją.
 
 Kitas rekursyvios funkcijos pavyzdys -- Fibonačio skaičiai. 1202 metais italų matematikas Leonardo Pisano, vadinamas Fibonačiu (*Fibonacci*), sugalvojo uždavinį: triušių pora kas mėnesį atsiveda po du triušiukus (patinėlį ir patelę), o iš atvestųjų triušiukų po dviejų mėnesių jau gaunamas naujas prieauglis. Kiek triušių bus po metų, jei metų pradžioje buvo viena jauniklių pora? Triušių skaičių kiekvieną mėnesį nusakys seka :math:`1, 1, 2, 3, 5, 8, 13, 21, 34, \ldots`, o šie skaičiai yra vadinami Fibonačio skaičiais. Juos taip pat galima skaičiuoti rekursyviai:
 
@@ -61,15 +61,15 @@ Kitas rekursyvios funkcijos pavyzdys -- Fibonačio skaičiai. 1202 metais italų
     F_1 &= F_2 = 1
     F_n &= F_{n-1} + F{n-2}, \text{jei} n > 2
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    function F(n : integer) : longint;
-    begin
-        if n <= 2 then
-            F := 1
+    int F(int n)
+    {
+        if (n <= 2)
+            return 1;
         else
-            F := F(n – 1) + F(n – 2);
-    end;  	
+            return F(n - 1) + F(n - 2);
+    }
 
 Nors ši funkcija atrodo tokia pat paprasta, kaip ir faktorialo, jos sudėtingumas yra eksponentinis [#fib_skaiciai]_. Taip yra todėl, kad kiekviena funkcija iškviečia net dvi kitas, antrines funkcijas, o joms perduodami argumentai sumažinami tik pastoviu dydžiu. Iškvietus ``F(45)``, atsakymo tektų palaukti.
 
@@ -103,20 +103,20 @@ Bandydami :math:`(n – 1)` mažesnių diskų perkelti ant vidurinio stiebo, gal
     #. Perkeliame :math:`n`-ąjį diską.
     #. Visus mažesnius diskus perkeliame ant galinio stiebo.
 
-Tegul ``kelk`` yra diskų perkėlinėjimo funkcija. Ji turi priklausyti nuo diskų, kuriuos reikia perkelti, skaičiaus. Be to, ji turi žinoti, nuo kurio ir ant kurio stiebo norima perkelti diskus. Tai nebus visada tie patys stiebai A ir C. Pavyzdžiui, jei norėsime n diskų perkelti nuo stiebo A ant stiebo C, turime :math:`(n – 1)` diską perkelti nuo stiebo A ant stiebo B (ta pati užduotis, tik kitas diskų skaičius ir stiebų vardai), o vėliau -- nuo B ant C. Kintamuosius žymėsime nuo, ant ir tarp (tarpiniam stiebui). Jei :math:`n > 0`, diskus perkeliame remdamiesi aukščiau aprašyta taisykle, o jei :math:`n = 0`, nereikia atlikti nieko -- rekursija baigiama.
+Tegul ``perkelk`` yra diskų perkėlinėjimo funkcija. Ji turi priklausyti nuo diskų, kuriuos reikia perkelti, skaičiaus. Be to, ji turi žinoti, nuo kurio ir ant kurio stiebo norima perkelti diskus. Tai nebus visada tie patys stiebai A ir C. Pavyzdžiui, jei norėsime n diskų perkelti nuo stiebo A ant stiebo C, turime :math:`(n – 1)` diską perkelti nuo stiebo A ant stiebo B (ta pati užduotis, tik kitas diskų skaičius ir stiebų vardai), o vėliau -- nuo B ant C. Kintamuosius žymėsime nuo, ant ir tarp (tarpiniam stiebui). Jei :math:`n > 0`, diskus perkeliame remdamiesi aukščiau aprašyta taisykle, o jei :math:`n = 0`, nereikia atlikti nieko -- rekursija baigiama.
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    procedure kelk(n : integer; nuo, tarp, ant : char);
-    begin
-        if n > 0 then begin
-          kelk(n – 1, nuo, ant, tarp); { nuo –> tarp }
-          writeln(nuo, ' –> ', ant);   { perkeliamas n-tasis diskas }
-          kelk(n – 1, tarp, nuo, ant)  { tarp –> ant }
-        end
-    end;  	
+    void perkelk(int n, char nuo, char tarp, char ant)
+    {
+        if (n > 0) {
+            perkelk(n - 1, nuo, ant, tarp); // nuo -> tarp
+            cout << nuo << " -> " << ant;   // perkeliamas n-tasis diskas
+            perkelk(n - 1, tarp, nuo, ant); // tarp -> ant
+        }
+    }
 
-Jei norime perkelti :math:`n` diskų nuo stiebo A ant stiebo C, iškviečiame ``kelk(n, 'A', 'B', 'C')``. Žemiau iliustruojamas procedūros veikimas, iškvietus ``kelk(3, 'A', 'B', 'C')``:
+Jei norime perkelti :math:`n` diskų nuo stiebo A ant stiebo C, iškviečiame ``perkelk(n, 'A', 'B', 'C')``. Žemiau iliustruojamas procedūros veikimas, iškvietus ``perkelk(3, 'A', 'B', 'C')``:
 
 Taigi procedūra atspausdins::
 
@@ -157,7 +157,7 @@ Taigi :math:`T_n` galime apskaičiuoti pagal rekurentinį sąryšį:
 
 Pavyzdžiui, :math:`T_4 = 2T_3 + 1 = 15`.
 
-Tačiau rekurentinis sąryšis neatsako į klausimą, koks procedūros kelk sudėtingumas. Matyti, kad, diskų skaičių padidinus vienetu, ėjimų skaičius maždaug padvigubėja. Norėdami būti tikri, išspręsime rekurentinį sąryšį.
+Tačiau rekurentinis sąryšis neatsako į klausimą, koks procedūros ``perkelk`` sudėtingumas. Matyti, kad, diskų skaičių padidinus vienetu, ėjimų skaičius maždaug padvigubėja. Norėdami būti tikri, išspręsime rekurentinį sąryšį.
 
 Pažymėkime :math:`U_n` skaičių, vienetu didesnį už :math:`T_n`: t. y. :math:`U_n = T_n + 1`.
 
@@ -177,7 +177,7 @@ Taigi:
 
 Iš čia matyti, kad :math:`U_n = 2U_{n–1} = 2^k \cdot U_{n–k} = 2^n`, vadinasi, :math:`T_n = U_n – 1 = 2^n – 1`.
 
-Procedūros ``kelk``, perkeliančios :math:`n` diskų, atliekamų žingsnių skaičius proporcingas :math:`T_n`, taigi šios procedūros sudėtingumas yra :math:`O(2^n)`. Palyginkime procedūrą kelk su Fibonačio skaičių skaičiavimo funkcija ``F`` -- kiekviena jų atlieka du rekursyvius kreipinius, argumentą sumažindamos tik pastoviu dydžiu. Tai lemia eksponentinį sudėtingumą.
+Procedūros ``perkelk``, perkeliančios :math:`n` diskų, atliekamų žingsnių skaičius proporcingas :math:`T_n`, taigi šios procedūros sudėtingumas yra :math:`O(2^n)`. Palyginkime procedūrą ``perkelk`` su Fibonačio skaičių skaičiavimo funkcija ``F`` -- kiekviena jų atlieka du rekursyvius kreipinius, argumentą sumažindamos tik pastoviu dydžiu. Tai lemia eksponentinį sudėtingumą.
 
 
 Rekursijos užbaigimas

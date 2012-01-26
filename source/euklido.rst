@@ -55,18 +55,18 @@ Raskime skaičių :math:`a = 12` ir :math:`b = 8` DBD naudodamiesi Euklido algor
 
 Gavome :math:`DBD(12, 8) = 4`. Užrašysime Euklido algoritmą Paskalio kalba:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    function DBD(a, b : longint) : longint;
-    var c : longint;
-    begin
-        while b > 0 do begin
-            c := a;
-            a := b;
-            b := c mod b;
-        end;
-        DBD := a;
-    end;
+    int DBD(int a, int b)
+    {
+        int c = a;
+        while (b > 0) {
+            a = b;
+            b = c % b;
+            c = a;
+        }
+        return c;
+    }
 
 Jei reikia rasti dviejų skaičių DBD, tačiau nežinome, ar jie teigiami, funkciją iškviečiame perduodami skaičių modulius: ``DBD(abs(a), abs(b))``.
 
@@ -95,15 +95,15 @@ Kadangi Euklido algoritmas apibrėžiamas rekurentiniais sąryšiais:
 * :math:`DBD(a, b) = DBD(b, a \mod b)`, jei :math:`b > 0` 
 tai Euklido algoritmą nesunku užrašyti rekursyvia [#rekursyvia]_ funkcija:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    function DBD(a, b : longint) : longint;
-    begin
-        if b = 0 then
-            DBD := a
+    int DBD(int a, int b)
+    {
+        if (b == 0)
+            return a;
         else
-            DBD := DBD(b, a mod b);
-    end;
+            return DBD(b, a % b);
+    }
 
 Pastebėkime, kad jei :math:`a < b`, algoritmas pirmu žingsniu šiuos skaičius sukeičia vietomis, pavyzdžiui, :math:`DBD(24, 54) = DBD(54, 24) = DBD(24, 6) = DBD(6, 0) = 6`.
 
@@ -120,25 +120,25 @@ Euklido algoritmas leidžia efektyviai apskaičiuoti ir mažiausią bendrąjį k
 .. todo:: sutvarkyti išnašą.
 .. todo:: dalyba prieš daugybą (paaiškinti?).
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    function MBK(a, b : longint) : longint;
-    begin
-        MBK := a * b div DBD(a, b);
-    end;
+    int MBK(int a, int b)
+    {
+        return a / DBD(a, b) * b;
+    }
 
 Naudodamiesi Euklido algoritmu galime rasti ne tik dviejų, bet ir keleto skaičių DBD bei MBK. Kadangi :math:`DBD(a, b, c) = DBD(DBD(a, b), c)`, ir :math:`MBK(a, b, c) = MBK(MBK(a, b), c)`. Šias lygybes suprasti ir įrodyti nesunku įsivaizduojant, kaip konstruotume DBD ir MBK iš skaičių :math:`a`, :math:`b` ir :math:`c` pirminių daugiklių.
 
 Tarkime, masyve :math:`m` yra :math:`k` sveikųjų skaičių. Pateiksime fragmentą, randantį visų :math:`k` skaičių DBD ir MBK:
 
-.. code-block:: pascal
+.. code-block:: c++
 
-    visuDBD := 0; { po pirmo žingsnio taps lygiu m[1] }
-    for i := 1 to k do
-        visuDBD := DBD(abs(m[i]), visuDBD);
-    visuMBK := 1; { po pirmo žingsnio taps lygiu m[1] }
-    for i := 1 to k do
-        visuMBK := MBK(abs(m[i]), visuMBK);
+    visuDBD = 0; // po pirmo žingsnio taps lygiu m[1]
+    for (int i = 1; i <= k; i++)
+        visuDBD = DBD(abs(m[i]), visuDBD);
+    visuMBK = 1; // po pirmo žingsnio taps lygiu m[1]
+    for (int i = 1; i <= k; i++)
+        visuMBK = MBK(abs(m[i]), visuMBK);
 
 
 .. todo:: pataisyti nuorodas į skyrius žemiau.
