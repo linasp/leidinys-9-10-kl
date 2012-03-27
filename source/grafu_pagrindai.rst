@@ -195,6 +195,8 @@ Procedūros ``ieskok_gilyn`` sudėtingumas yra :math:`O(b)`, kur :math:`b` yra g
 Kaip tik paieška gilyn ir naudojosi Tesėjas, ieškodamas labirinte Minotauro. Kiekvienoje koridorių sankirtoje jis pasirinkdavo tolimesnę kryptį ir jei prieidavo aklavietę, grįždavo atgal iki praeitos sankirtos bandyti kitos krypties. O jei toje sankirtoje visi koridoriai jau išbandyti --- grįždavo į dar ankstesnę sankirtą ir taip toliau. Siūlas padėjo Tesėjui rasti Minotaurą.
 
 
+.. _jungumo-tikrinimas:
+
 Patikrinimas, ar grafas jungus
 ------------------------------
 

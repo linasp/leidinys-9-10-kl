@@ -20,6 +20,7 @@ Contents:
    perrinkimas
    rikiavimas
    grafu_pagrindai
+   oilerio_ciklai
 
 
 
