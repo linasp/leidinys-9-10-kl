@@ -168,8 +168,6 @@ Kauliukų dėliojimas į liniją atitinka kelią, kai visomis grafo briaunomis a
 Hamiltono keliai ir ciklai
 --------------------------
 
-.. todo:: Sutvarkyti eilutes.
-
     *O brooding Spirit of Wisdom and of Love,
     Whose mighty wings even now o'ershadow me,
     Absorb me in thine own immensity,
@@ -181,6 +179,8 @@ Hamiltono keliai ir ciklai
     ir peržengt savo ribotumo sieną! [#eiliu_vertimas]_
 
     -- Seras Viljamas Rovanas Hamiltonas (*Sir William Rowan Hamilton*)
+
+.. todo:: Sutvarkyti eilutes.
 
 Ieškodami visų Hamiltono kelių grafe, kurio viršūnės sunumeruotos nuo :math:`1` iki :math:`n`, galėtume generuoti visus skaičių nuo :math:`1` iki :math:`n` kėlinius (t. y. visas galimas viršūnių apėjimo tvarkas) :math:`k_1, k_2, \ldots, k_n`, o sugeneravę patikrinti, ar egzistuoja visos briaunos :math:`(k_i, k_{i + 1}), (i = 1, 2, \ldots, n - 1)`.
 
