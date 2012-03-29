@@ -22,6 +22,7 @@ Contents:
    grafu_pagrindai
    oilerio_ciklai
    orientuoti_grafai
+   dijkstra
 
 
 
