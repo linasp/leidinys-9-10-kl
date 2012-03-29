@@ -21,6 +21,7 @@ Contents:
    rikiavimas
    grafu_pagrindai
    oilerio_ciklai
+   orientuoti_grafai
 
 
 

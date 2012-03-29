@@ -150,7 +150,7 @@ Atkreipiame dėmesį, kad procedūra ``ieskok_gilyn`` buvo pateikta skyrelyje :r
 Uždavinys *Domino kauliukai* 
 ----------------------------
 
-Pritaikykime Flerio algoritmą spręsdami uždavinį Domino kauliukai [#domino_kauliukai]_:
+Pritaikykime Flerio algoritmą spręsdami uždavinį *Domino kauliukai* [#uzd_domino_kauliukai]_:
 
     Yra krūvelė domino kauliukų. Kiekvienas domino kauliukas perskirtas pusiau, kiekvienoje pusėje užrašytas skaičius nuo 0 iki 6. Du kauliukus galima sujungti, jei sutampa skaičiai, užrašyti ant sujungiamų kauliukų pusių.
 
@@ -230,7 +230,7 @@ Jei ieškotume ne kelių, o ciklų, tuomet sugeneravus visą seką reiktų papil
 
 .. [#jungus_pastaba] Išimtis, jei grafe yra izoliuotų (t.y. iš kurių neišeina nė viena briauna) viršūnių; tokiu atveju Oilerio ciklas gali egzistuoti, nors grafas ir nejungus.
 
-.. [#domino_kauliukai] Šis uždavinys buvo pateiktas Lietuvos informatikos olimpiados III etape 1995 metais.
+.. [#uzd_domino_kauliukai] Šis uždavinys buvo pateiktas Lietuvos informatikos olimpiados III etape 1995 metais.
 
 .. [#eiliu_vertimas] Eiles vertė Gediminas Pulokas.
 
